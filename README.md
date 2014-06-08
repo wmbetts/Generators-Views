@@ -3,6 +3,11 @@ Generators-Views
 
 This package provides complete CRUD views for Way/Generators.
 
+##Installation
+1. Move the contents of this repo to app/templates
+2. Move layout.blade.php to app/views
+3. Create a route group for each page you create that includes: index, create, store, update/{id}, edit/{id}, destroy/{id}
+
 
 LICENSE
 =======
