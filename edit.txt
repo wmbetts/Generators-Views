@@ -1,0 +1,39 @@
+@extends('layout')
+@section('content')
+
+<div class="row">
+    <div class="col-md-8 col-sm-12 col-sx-12">
+        <div class="panel panel-default">
+            <div class="panel-heading clearfix">
+                <i class="icon-bar-chart"></i>
+                <h3 class="panel-title">Entries</h3>
+            </div>
+            <div class="panel-body">
+                {{ Form::open(array('style' => 'display: inline-block;', 'method' => 'PATCH', 'route' => array('tokens.update', $model->id))) }}
+
+                @foreach ($columns as $column)
+                    {{ Form::label($column, $column) }}
+                    {{ Form::text($column, $model->$column) }}
+
+                @endforeach
+
+                {{ Form::submit('Save', ['name' => 'submit']) }}
+                {{ Form::close() }}
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 col-sm-12 col-xs-12">
+        <div class="panel panel-default">
+            <div class="panel-heading clearfix">
+                <i class="icon-calendar"></i>
+                <h3 class="panel-title">Add Entry</h3>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    {{ $model->modelCreateForm() }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection

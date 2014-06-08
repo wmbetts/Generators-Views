@@ -1,0 +1,133 @@
+<?php
+
+class $NAME$ extends \BaseController {
+    protected $model;
+    protected $breadCrumbs = ['$NAME$'];
+
+	/**
+	 * Display a listing of $COLLECTION$
+	 *
+	 * @return Response
+	 */
+	public function index()
+	{
+
+        $this->model = new $MODEL$;
+		$$COLLECTION$ = $MODEL$::all();
+
+        $this->model->init();
+
+        return View::make('$COLLECTION$.index', ['breadCrumbs' => $this->breadCrumbs, 'model' => $this->model, 'formUrl' => '/$COLLECTION$/store', compact('$COLLECTION$')]);
+	}
+
+	/**
+	 * Show the form for creating a new $RESOURCE$
+	 *
+	 * @return Response
+	 */
+	public function create()
+	{
+		return View::make('$COLLECTION$.create');
+	}
+
+	/**
+	 * Store a newly created $RESOURCE$ in storage.
+	 *
+	 * @return Response
+	 */
+	public function store()
+	{
+            $model = new $MODEL$;
+            $model->init();
+            $validator = Validator::make($data = Input::all(), $model->getRules());
+
+            if ($validator->fails())
+            {
+                return Redirect::back()->withErrors($validator)->withInput();
+            }
+
+            foreach ($data as $key => $value)
+            {
+                $model->$key = $value;
+            }
+
+            $model->save();
+
+            return Redirect::route('$COLLECTION$.index');
+	}
+
+	/**
+	 * Display the specified $RESOURCE$.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function show($id)
+	{
+		$$RESOURCE$ = $MODEL$::findOrFail($id);
+
+		return View::make('$COLLECTION$.show', compact('$RESOURCE$'));
+	}
+
+	/**
+	 * Show the form for editing the specified $RESOURCE$.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function edit($id)
+	{
+		$$RESOURCE$ = $MODEL$::find($id);
+
+                    return View::make('$COLLECTION$.edit', ['breadCrumbs' => $this->breadCrumbs,
+                                                      'model'       => $$RESOURCE$,
+                                                      'formUrl'     => '/$RESOURCE$/store',
+                                                      'id'          => $id,
+                        compact('$RESOURCE$')]);
+	}
+
+	/**
+	 * Update the specified $RESOURCE$ in storage.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function update($id)
+	{
+        $$RESOURCE$ = $MODEL$::findOrFail($id);
+
+        $validator = Validator::make($data = Input::all(), $$RESOURCE$->getRules());
+
+        if ($validator->fails())
+        {
+            return Redirect::back()->withErrors($validator)->withInput();
+        }
+
+        foreach ($data as $key => $value)
+        {
+            if ($key == '_token' || $key == '_method' || $key == 'submit')
+            {
+                continue;
+            }
+            $$RESOURCE$->$key = $value;
+        }
+
+        $$RESOURCE$->save();
+
+        return Redirect::route('$COLLECTION$.index');
+	}
+
+	/**
+	 * Remove the specified $RESOURCE$ from storage.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function destroy($id)
+	{
+		$MODEL$::destroy($id);
+
+		return Redirect::route('$COLLECTION$.index');
+	}
+
+}
