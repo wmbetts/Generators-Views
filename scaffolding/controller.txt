@@ -53,7 +53,7 @@ class $NAME$ extends \BaseController {
 
             $model->save();
 
-            return Redirect::route('$COLLECTION$.index');
+            return Redirect::to('/$COLLECTION$');
 	}
 
 	/**
