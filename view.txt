@@ -1,16 +1,16 @@
 @extends('layout')
 @section('left-title')
 	Entries
-@end
+@endsection
 
 @section('content-left')
 	{{ $model }}
-@end
+@endsection
 
 @section('right-title')
 	Add Entry
-@end
+@endsection
 
-@section('right-content')
+@section('content-right')
     {{ $model->modelCreateForm() }}
-@end
+@endsection

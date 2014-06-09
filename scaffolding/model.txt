@@ -148,7 +148,7 @@ class $NAME$ extends \Eloquent {
 
     public function modelCreateForm()
     {
-        $form = '<form method="PATCH" action="/' . strtolower('$NAME$') . 's/store">';
+        $form = '<form method="POST" action="/' . strtolower('$NAME$') . 's">';
 
         foreach ($this->columns as $element)
         {
