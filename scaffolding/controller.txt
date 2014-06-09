@@ -79,8 +79,9 @@ class $NAME$ extends \BaseController {
 		$$RESOURCE$ = $MODEL$::find($id);
 
                     return View::make('$COLLECTION$.edit', ['model'       => $$RESOURCE$,
-															'formUrl'     => '/$RESOURCE$/store',
+															'formUrl'     => '/$RESOURCE$/update',
 															'id'          => $id,
+															'column'	  => $$RESOURCE$->getColumns(),
 															compact('$RESOURCE$')]);
 	}
 
