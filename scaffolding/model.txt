@@ -1,82 +1,6 @@
 <?php
 
-class $NAME$ extends \Eloquent {
-	protected $columns          = [];
-	protected $rules            = [];
-	protected $ignoredColumns   = ['id', 'created_at', 'updated_at'];
-	protected $fillable         = [];
-
-
-    /**
-     * Initializes the columns and fillable arrays
-     */
-    public function init()
-    {
-        $this->buildColumnNames();
-
-        foreach ($this->columns as $column)
-        {
-            if (!in_array($column, $this->ignoredColumns))
-            {
-                $this->fillable[] = $column;
-            }
-        }
-    }
-
-    /**
-     * This method allows you add database columns to ignore.
-     *
-     *  @param   $column string  The name of a column to ignore
-     *  @return $NAME$
-     */
-    public function setIgnoredColumn($column)
-    {
-        $this->ignoredColumns[] = $column;
-
-        return $this;
-    }
-
-    /**
-     * Allows another object to get a list of the database tables columns
-     *
-     *  @return array
-     */
-    public function getColumns()
-    {
-        $this->buildColumnNames();
-        return $this->columns;
-    }
-
-    /**
-     * Allow another object to get the list of ignored database columns
-     *
-     *  @return array
-     */
-    public function getIgnoredColumns()
-    {
-        return $this->ignoredColumns;
-    }
-
-    /**
-     * Allows another object to get the database validation rules.
-     *
-     *  @return array
-     */
-    public function getRules()
-    {
-            foreach ($this->columns as $column)
-            {
-                if (in_array($column, $this->ignoredColumns))
-                {
-                    continue;
-                }
-
-                $this->rules[$column] = 'required';
-            }
-
-            return $this->rules;
-    }
-
+class $NAME$ extends BaseModel {
     /**
      * Prints a boostrap formatted html table from the columns and data in the $NAME$ table
      *
@@ -105,7 +29,7 @@ class $NAME$ extends \Eloquent {
                         $table .= '<td>' . $row->$column . '</td>';
                     }
                     $table .= '<td><div class="btn-group">
-                    <span style="display: inline-block;"><a href="/' . strtolower('World') . 's/' . $row->id . '/edit"><input class="btn btn-primary" type="submit" value="Edit"></a></span> &nbsp;&nbsp;&nbsp;                                                    <form method="POST" action="/' . strtolower('$NAME$') . 's/' . $row->id . '" accept-charset="UTF-8" style="display: inline-block;"><input name="_method" type="hidden" value="DELETE"><input class="btn btn-danger" type="submit" value="Delete"></form>
+                    <span style="display: inline-block;"><a href="/' . strtolower('$NAME$') . 's/' . $row->id . '/edit"><input class="btn btn-primary" type="submit" value="Edit"></a></span> &nbsp;&nbsp;&nbsp;                                                    <form method="POST" action="/' . strtolower('$NAME$') . 's/' . $row->id . '" accept-charset="UTF-8" style="display: inline-block;"><input name="_method" type="hidden" value="DELETE"><input class="btn btn-danger" type="submit" value="Delete"></form>
                                                        </div></td>';
                     $table .= '</tr>';
 
@@ -119,53 +43,4 @@ class $NAME$ extends \Eloquent {
                 return $ex->getTraceAsString();
             }
     }
-
-	protected function buildColumnNames()
-	{
-		$query = 'SHOW COLUMNS FROM ' . strtolower('$NAME$' . 's');
-
-		foreach(DB::select($query) as $column)
-		{
-			$this->columns[] = $column->Field;
-		}
-	}
-
-
-	protected function modelTableHeader()
-	{
-	    $html = '';
-
-		foreach ($this->columns as $column)
-		{
-	        if (!in_array($column, $this->ignoredColumns))
-	        {
-	            $html .= '<th>' . $column . '</th>';
-	        }
-		}
-
-		return '<thead><tr>' . $html . '<th>actions</th></tr></thead>';
-	}
-
-    public function modelCreateForm()
-    {
-        $form = '<form method="POST" action="/' . strtolower('$NAME$') . 's">';
-
-        foreach ($this->columns as $element)
-        {
-            if (!in_array($element, $this->ignoredColumns))
-            {
-                $form .= '<div class="form-group">
-              <label class="col-md-2 control-label">' . $element . '</label>
-              <div class="col-md-10">
-                <input type="text" name="' . $element. '" class="form-control">
-              </div>
-            </div>';
-            }
-        }
-
-        $form .= '<input type="submit" class="btn btn-primary" />';
-        $form .= '</form>';
-
-        return $form;
-     }
 }

@@ -4,7 +4,7 @@
 @endsection
 
 @section('content-left')
-	{{ Form::open(array('method' => 'PATCH', 'route' => array('worlds.update', $model->id))) }}
+	{{ Form::open(array('method' => 'PATCH', 'route' => array('peas.update', $model->id))) }}
 
 	@foreach ($columns as $column)
 		{{ Form::label($column, $column) }}

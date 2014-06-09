@@ -14,8 +14,6 @@ class $NAME$ extends \BaseController {
         $this->model = new $MODEL$;
 		$$COLLECTION$ = $MODEL$::all();
 
-        $this->model->init();
-
         return View::make('$COLLECTION$.index', ['model' => $this->model, 'formUrl' => '/$COLLECTION$/store', compact('$COLLECTION$')]);
 	}
 
@@ -37,7 +35,6 @@ class $NAME$ extends \BaseController {
 	public function store()
 	{
             $model = new $MODEL$;
-            $model->init();
             $validator = Validator::make($data = Input::all(), $model->getRules());
 
             if ($validator->fails())
