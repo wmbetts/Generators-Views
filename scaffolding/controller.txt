@@ -2,7 +2,6 @@
 
 class $NAME$ extends \BaseController {
     protected $model;
-    protected $breadCrumbs = ['$NAME$'];
 
 	/**
 	 * Display a listing of $COLLECTION$
@@ -17,7 +16,7 @@ class $NAME$ extends \BaseController {
 
         $this->model->init();
 
-        return View::make('$COLLECTION$.index', ['breadCrumbs' => $this->breadCrumbs, 'model' => $this->model, 'formUrl' => '/$COLLECTION$/store', compact('$COLLECTION$')]);
+        return View::make('$COLLECTION$.index', ['model' => $this->model, 'formUrl' => '/$COLLECTION$/store', compact('$COLLECTION$')]);
 	}
 
 	/**
@@ -79,11 +78,10 @@ class $NAME$ extends \BaseController {
 	{
 		$$RESOURCE$ = $MODEL$::find($id);
 
-                    return View::make('$COLLECTION$.edit', ['breadCrumbs' => $this->breadCrumbs,
-                                                      'model'       => $$RESOURCE$,
-                                                      'formUrl'     => '/$RESOURCE$/store',
-                                                      'id'          => $id,
-                        compact('$RESOURCE$')]);
+                    return View::make('$COLLECTION$.edit', ['model'       => $$RESOURCE$,
+															'formUrl'     => '/$RESOURCE$/store',
+															'id'          => $id,
+															compact('$RESOURCE$')]);
 	}
 
 	/**
