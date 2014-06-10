@@ -3,6 +3,10 @@
 class $NAME$ extends \BaseController {
     protected $model;
 
+	public function __construct()
+	{
+		$this->model = new $NAME$;	
+	}
 	/**
 	 * Display a listing of $COLLECTION$
 	 *
@@ -14,7 +18,7 @@ class $NAME$ extends \BaseController {
         $this->model = new $MODEL$;
 		$$COLLECTION$ = $MODEL$::all();
 
-        return View::make('$COLLECTION$.index', ['model' => $this->model, 'formUrl' => '/$COLLECTION$/store', compact('$COLLECTION$')]);
+        return View::make('$COLLECTION$.index', ['tables' => $this->model->getTables(), 'model' => $this->model, 'formUrl' => '/$COLLECTION$/store', compact('$COLLECTION$')]);
 	}
 
 	/**
@@ -75,7 +79,8 @@ class $NAME$ extends \BaseController {
 	{
 		$$RESOURCE$ = $MODEL$::find($id);
 
-                    return View::make('$COLLECTION$.edit', ['model'       => $$RESOURCE$,
+                    return View::make('$COLLECTION$.edit', ['tables'	  => $this->model->getTables(),
+															'model'       => $$RESOURCE$,
 															'formUrl'     => '/$RESOURCE$/update',
 															'id'          => $id,
 															'column'	  => $$RESOURCE$->getColumns(),
